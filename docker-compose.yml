@@ -1,0 +1,7 @@
+versions: "3.8"
+services:
+  bfend:
+    build: ./frontend
+    port:
+    - "8080:80"
+    container_name: cfend
