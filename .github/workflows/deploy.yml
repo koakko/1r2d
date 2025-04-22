@@ -12,6 +12,7 @@ jobs:
     environment: 1r2de
     steps:
       - uses: actions/checkout@v4
+      
       - name: build frontend image
       working-directory: ./frontend
       run: |
@@ -21,6 +22,7 @@ jobs:
         echo "${{ secrets.DHPASS }}" | docker -u "${{ secrets.DHUSER }}" --password -stdin
         docker tag fimg koak/1r2d:frontend
         docker push koak/1r2d:frontend 
+      
       - name: deploy image in ps1
       run: |
         eval "$(ssh-agent -k)" || true
