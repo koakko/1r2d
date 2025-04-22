@@ -30,8 +30,8 @@ jobs:
          ssh-add ~/.ssh/adv
           ssh "${{ secrets.SSHUSER }}"@"${{ secrets.SSHHOST }}"
           echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
-          docker rmi koak/1r2d:frontend
+          docker rmi koak/1r2d:frontend || true
           curl -o docker-compose.yml https://raw.githubusercontent.com/koakko/1r2d/refs/heads/main/docker-compose.yml
-          docker stop cfend
-          docker rm cfend
+          docker stop cfend || true
+          docker rm cfend || true
           docker compose up -d .
