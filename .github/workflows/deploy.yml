@@ -7,7 +7,7 @@ on:
     branches:
       - main
 jobs:
-  buildimg:
+  bfimg:
     runs-on: run1
     environment: 1r2de
     steps:
