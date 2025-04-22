@@ -1,4 +1,4 @@
-name: 1 runner 2 deployers
+name: 1-runner-2-deployers
 on:
   push:
     branches:
@@ -11,10 +11,9 @@ jobs:
     runs-on: run1
     environment: 1r2de
     steps:
-      - name: github checkout
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       
-      - name: build frontend image
+      - name: build-frontend-image
       working-directory: ./frontend
       run: |
         docker rmi fimg || true
@@ -24,7 +23,7 @@ jobs:
         docker tag fimg koak/1r2d:frontend
         docker push koak/1r2d:frontend 
       
-      - name: deploy image in ps1
+      - name: deploy-image-in-ps1
       run: |
         eval "$(ssh-agent -k)" || true
         eval "$(ssh-agent -s)"
