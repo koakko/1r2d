@@ -1,7 +1,7 @@
 versions: "3.8"
 services:
   bfend:
-    build: ./frontend
+    image: koak/1r2d:frontend
     port:
     - "8080:80"
     container_name: cfend

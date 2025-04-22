@@ -30,7 +30,7 @@ jobs:
       echo "${{ secrets.DHPASS }}" | docker -u "${{ secrets.DHUSER }}" --password -stdin
       docker rmi koak/1r2d:frontend
       docker pull koak/1r2d:frontend
-      curl -o docker-compose.yml
+      curl -o docker-compose.yml https://raw.githubusercontent.com/koakko/1r2d/refs/heads/main/docker-compose.yml
       docker stop cfend
       docker rm cfend
       docker compose up -d .
