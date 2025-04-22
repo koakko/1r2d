@@ -58,7 +58,5 @@ jobs:
           script: |
             docker logout || true
             echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
-            docker rm cbend || true
-            docker rmi koak/1r2d:backend || true
             docker pull koak/1r2d:backend
             docker run -d --name cbend -p "5000:5000" koak/1r2d:backend
