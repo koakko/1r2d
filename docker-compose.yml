@@ -1,4 +1,4 @@
-versions: "3.8"
+versions: '3.8'
 services:
   bfend:
     image: koak/1r2d:frontend
