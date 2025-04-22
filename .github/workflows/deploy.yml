@@ -28,7 +28,7 @@ jobs:
          eval "$(ssh-agent -k)" || true
          eval "$(ssh-agent -s)"
          ssh-add ~/.ssh/adv
-          ssh "${{ secrets.SSHUSER }}"@"${{ secrets.SSHHOST }}"
+          ssh -T "${{ secrets.SSHUSER }}"@"${{ secrets.SSHHOST }}"
           echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
           docker rmi koak/1r2d:frontend || true
           curl -o docker-compose.yml https://raw.githubusercontent.com/koakko/1r2d/refs/heads/main/docker-compose.yml
