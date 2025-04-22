@@ -34,4 +34,4 @@ jobs:
           curl -o docker-compose.yml https://raw.githubusercontent.com/koakko/1r2d/refs/heads/main/docker-compose.yml
           docker stop cfend || true
           docker rm cfend || true
-          docker compose up -d .
+          docker compose up -d
