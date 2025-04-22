@@ -1,4 +1,4 @@
-name: 1-runner-2-deployers
+name: 1-runner-2-deployer
 on:
   push:
     branches:
@@ -16,6 +16,7 @@ jobs:
       - name: build-frontend-image
         working-directory: ./frontend
         run: |
+          docker logout || true
           docker rmi fimg || true
           docker rmi koak/1r2d:frontend || true
           docker build -t fimg .
