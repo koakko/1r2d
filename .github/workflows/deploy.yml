@@ -1,4 +1,4 @@
-name: 1 runner 2 deployer
+name: 1 runner 2 deployers
 on:
   push:
     branches:
@@ -9,6 +9,7 @@ on:
 jobs:
   buildimg:
     runs-on: run1
+    environment: 1r2de
     steps:
       - uses: actions/checkout@v4
       - name: build frontend image
