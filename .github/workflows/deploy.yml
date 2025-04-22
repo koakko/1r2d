@@ -17,7 +17,7 @@ jobs:
         working-directory: ./frontend
         run: |
           docker rmi fimg || true
-          docker rmi koak/1r2d:frontend
+          docker rmi koak/1r2d:frontend || true
           docker build -t fimg .
           echo "${{ secrets.DHPASS }}" | docker -u "${{ secrets.DHUSER }}" --password -stdin
           docker tag fimg koak/1r2d:frontend
