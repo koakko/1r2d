@@ -23,6 +23,15 @@ jobs:
           docker tag fimg koak/1r2d:frontend
           docker push koak/1r2d:frontend
       
+      - name: build backend image
+        working-directory: ./backend
+        run: |
+          docker rmi bend || true
+          docker rmi koak/1r2d:backend || true
+          docker build -t bend .
+          docker tag bend koak/1r2d:backend
+          docker push koak/1r2d:backend 
+      
       - name: deploy-image-in-ps1
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -37,3 +46,18 @@ jobs:
             docker stop cfend || true
             docker rm cfend || true
             docker compose up -d
+
+      - name: deploy backend container in ps2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSHHOST2 }}
+          username: ${{ secrets.SSHUSER2 }}
+          key: ${{ secrets.SSHKEY }}
+          port: 22
+          script: |
+            echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
+            docker stop cbend || true
+            docker rm cbend || true
+            docker rmi koak/1r2d:backend || true
+            docker pull koak/1r2d:backend
+            docker run -d --name cbend koak/1r2d:backend
