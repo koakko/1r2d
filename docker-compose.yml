@@ -3,5 +3,5 @@ services:
   bfend:
     image: koak/1r2d:frontend
     ports:
-    - "80:80"
+    - "8080:80"
     container_name: cfend
