@@ -42,10 +42,10 @@ jobs:
           port: 22
           script: |
             echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
-            docker rmi koak/1r2d:frontend
             curl -o docker-compose.yml https://raw.githubusercontent.com/koakko/1r2d/refs/heads/main/docker-compose.yml
-            docker stop cfend
-            docker rm cfend
+            docker stop $(docker ps -aq) || true
+            docker rm $(docker ps -aq) || true
+            docker rmi koak/1r2d:frontend || true
             docker compose up -d
 
       - name: deploy backend container in ps2
@@ -56,10 +56,10 @@ jobs:
           key: ${{ secrets.SSHKEY }}
           port: 22
           script: |
-            docker logout
-            echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin
-            docker rmi koak/1r2d:backend 
-            docker stop cbend 
-            docker rm cbend
+            docker logout || true
+            echo "${{ secrets.DHPASS }}" | docker login -u "${{ secrets.DHUSER }}" --password-stdin 
+            docker stop $(docker ps -aq) || true
+            docker rm $(docker ps -aq) || true
+            docker rmi koak/1r2d:backend || true
             docker pull koak/1r2d:backend
             docker run -d -p "5000:5000" --name cbend koak/1r2d:backend
